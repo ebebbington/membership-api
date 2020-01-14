@@ -1,0 +1,51 @@
+version: '1'
+
+services:
+
+  nginx:
+    container_name: membership_system_nginx
+    build:
+      context: .
+      dockerfile: .docker/nginx.dockerfile
+    ports:
+      - "9002:9002"
+    volumes:
+      - ./src/api:/var/www/api
+    working_dir: /var/www/api
+    networks:
+      - membership-system-network
+
+  node:
+    container_name: membership_system_api
+    build:
+      context: .
+      dockerfile: .docker/node.dockerfile
+    volumes:
+      - ./src/api:/var/www/api
+    working_dir: /var/www/api
+    command: bash -c "npm i --verbose && pm2-runtime ecosystem.config.js"
+    networks:
+      - membership-system-network
+  mongodb:
+    container_name: membership_system_mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+    env_file:
+      - ./.docker/env/mongodb.env
+    networks:
+      - membership-system-network
+
+  #mongoseeder:
+  #  container_name: juanportal_mongoseeder
+  #  build:
+  #    context: .
+  #    dockerfile: .docker/mongo.seeder.dockerfile
+  #  depends_on:
+  #    - mongodb
+  #  networks:
+  #    - juanportal-network
+
+networks:
+  membership-system-network:
+    driver: bridge
