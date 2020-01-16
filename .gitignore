@@ -1,3 +1,7 @@
 src/api/node_modules
 .idea
 .git
+src/api/app.js
+src/api/models/*.js
+src/api/controllers/*.js
+src/api/interfaces/controllers/DataInterface.js
