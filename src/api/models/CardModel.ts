@@ -1,10 +1,12 @@
 import BaseModel from './BaseModel'
 import {Document, Schema, Model, model } from 'mongoose'
-//const MongooseModel = require('../schemas/card')
+const MongooseModel = require('../schemas/CardSchema')
 
 class CardModel extends BaseModel {
 
     public _id: string|null = null
+
+    public employee_id: number|null = null
 
     public name: string|null = null
 
@@ -16,10 +18,11 @@ class CardModel extends BaseModel {
 
     public amount: number|null = null
 
-    protected tablename: string = 'card'
+    protected tablename: string = 'Card'
 
     protected exposables: string[] = [
         '_id',
+        'employee_id',
         'name',
         'email',
         'phone_number',
@@ -28,10 +31,8 @@ class CardModel extends BaseModel {
     ]
 
     protected getMongooseModel(): Model<any>{
-        // todo :: return below statement when schema is created
-        //return MongooseModel
-        return Model
+        return MongooseModel
     }
 }
 
-module.exports = BaseModel
+module.exports = CardModel
