@@ -5,3 +5,6 @@ src/api/app.js
 src/api/models/*.js
 src/api/controllers/*.js
 src/api/interfaces/controllers/DataInterface.js
+src/api/coverage
+src/api/.nyc_output
+src/api/package-lock.json

@@ -1,0 +1,30 @@
+config:
+  target: "http://127.0.0.1:9002"
+  phases:
+    - duration: 120
+      arrivalRate: 60
+  defaults:
+
+scenarios:
+  - name: "POST on /card"
+    flow:
+      - post:
+          url: "/api/v1/card"
+          json:
+          capture:
+            json: "$"
+            as: "res"
+      - log: "/card Response: {{ res }}"
+
+  - name: "PUT on /card/topup"
+    flow:
+      - put:
+          url: "/api/v1/card/topup"
+          json:
+            pin: "1234"
+            employee_id: "1234"
+            amount: 100
+          capture:
+            json: "$"
+            as: "res"
+      - log: "/card/topup Response: {{ res }}"
